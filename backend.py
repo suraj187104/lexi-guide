@@ -17,7 +17,6 @@ load_dotenv()
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-
 import uvicorn
 
 # Configure logging
@@ -66,14 +65,16 @@ class ContractAnalysisRequest(BaseModel):
     country: str = Field(default="India", description="Country/jurisdiction for legal analysis")
     user_id: Optional[str] = Field(default=None, description="Optional user identifier")
     
-    @validator('user_role')
+    @field_validator('user_role')
+    @classmethod
     def validate_user_role(cls, v):
         valid_roles = ["student", "freelancer", "client", "startup", "vendor", "legal"]
         if v not in valid_roles:
             raise ValueError(f"Invalid user role. Must be one of: {', '.join(valid_roles)}")
         return v
     
-    @validator('country')
+    @field_validator('country')
+    @classmethod
     def validate_country(cls, v):
         if len(v.strip()) < 2:
             raise ValueError("Country name must be at least 2 characters long")
