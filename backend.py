@@ -5,7 +5,7 @@ A FastAPI server that analyzes legal contracts using Google Gemini AI
 
 import os
 import logging
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 from typing import Optional, Literal
 from datetime import datetime
 
