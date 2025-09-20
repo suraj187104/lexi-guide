@@ -9,8 +9,8 @@ echo "Starting Lexi-Guide build process..."
 echo "Upgrading pip..."
 python -m pip install --upgrade pip
 
-# Install dependencies avoiding compilation
+# Use simple requirements to avoid compilation
 echo "Installing dependencies..."
-pip install --only-binary=all -r requirements.txt
+pip install -r requirements.txt
 
 echo "Build completed successfully!"
