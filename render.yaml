@@ -1,39 +1,7 @@
-steps:
-  # Build the container image
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/lexi-guide-backend:$SHORT_SHA', '.']
-
-  # Push the container image to Container Registry
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/lexi-guide-backend:$SHORT_SHA']
-
-  # Deploy container image to Cloud Run
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: gcloud
-    args:
-      - 'run'
-      - 'deploy'
-      - 'lexi-guide-backend'
-      - '--image'
-      - 'gcr.io/$PROJECT_ID/lexi-guide-backend:$SHORT_SHA'
-      - '--region'
-      - 'us-central1'
-      - '--platform'
-      - 'managed'
-      - '--allow-unauthenticated'
-      - '--port'
-      - '8000'
-      - '--memory'
-      - '1Gi'
-      - '--cpu'
-      - '1'
-      - '--max-instances'
-      - '10'
-      - '--set-env-vars'
-      - 'GEMINI_API_KEY=${_GEMINI_API_KEY}'
-
-substitutions:
-  _GEMINI_API_KEY: 'AIzaSyDWVIwq35U_KVCJFU6A1XgSVnSOO6JiZMo'
-
-options:
-  logging: CLOUD_LOGGING_ONLY
+services:
+  - type: web
+    name: lexi-guide-api
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true
