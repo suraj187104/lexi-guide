@@ -1,0 +1,7 @@
+# Railway configuration
+# This tells Railway to use Python 3.11
+[build]
+  builder = "heroku/python"
+
+[deploy]
+  startCommand = "python backend.py"
