@@ -3,7 +3,7 @@
   command = "npm run build"
 
 [build.environment]
-  REACT_APP_API_URL = "https://your-backend-url.railway.app"
+  REACT_APP_API_URL = "https://lexi-guide.onrender.com"
 
 [[redirects]]
   from = "/*"
