@@ -1,7 +1,15 @@
-# Railway configuration
-# This tells Railway to use Python 3.11
-[build]
-  builder = "heroku/python"
+# Nixpacks configuration for Railway deployment
+[phases.setup]
+  nixPkgs = ['python311', 'pip']
 
-[deploy]
-  startCommand = "python backend.py"
+[phases.install]
+  cmds = ['pip install -r requirements.txt']
+
+[phases.build]
+  cmds = ['echo "Build completed"']
+
+[start]
+  cmd = 'python backend.py'
+
+[variables]
+  PORT = '8000'
